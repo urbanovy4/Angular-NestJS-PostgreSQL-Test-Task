@@ -1,0 +1,24 @@
+<main>
+  <div class="spin" *ngIf="products.length === 0">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div class="product_list_wrap">
+    <div class="product_list">
+      <div class="product col-lg-4 col-md-6 col-sm-12" *ngFor="let product of products">
+        <div class="content">
+          <div class="photo">
+            <a href="http://localhost:3000/product/info?id={{product.id}}"><img src="{{product.photo}}" alt="img"></a>
+          </div>
+          <div class="product_title_and_price d-flex justify-content-between">
+            <div class="title">
+              <span><i>{{product.name}}</i></span>
+            </div>
+            <div class="price">
+              <a href="http://localhost:3000/product/price?id={{product.id}}"><span>{{product.price}}$</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

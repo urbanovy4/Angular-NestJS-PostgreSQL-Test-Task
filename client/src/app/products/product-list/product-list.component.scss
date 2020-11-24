@@ -1,0 +1,65 @@
+.spin {
+  height: 84.5vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product_list_wrap {
+  .product_list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .product {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+
+      .content {
+        transition: .5s;
+
+        .photo {
+          text-align: center;
+          padding: 25px 25px 0;
+          background-color: #B3B0C1;
+          border-radius: 6px 6px 0 0;
+        }
+
+        .product_title_and_price {
+          .title {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            width: 66.6%;
+            background-color: #CAC7DA;
+            padding-left: 25px;
+            border-radius: 0 0 0 6px;
+          }
+
+          .price {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 33.3%;
+            background-color: #8878C1;
+            border-radius: 0 0 6px 0;
+            font-size: large;
+            font-weight: bold;
+
+            a {
+              color: #000;
+              text-decoration: none;
+            }
+          }
+        }
+
+        &:hover {
+          transform: scale(1.02);
+        }
+
+      }
+    }
+  }
+}

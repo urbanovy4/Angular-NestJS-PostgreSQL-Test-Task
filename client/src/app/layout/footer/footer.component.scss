@@ -1,0 +1,12 @@
+footer {
+  height:8vh;
+  background: #343A40;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .copyright_text {
+    color: #fff;
+  }
+}
