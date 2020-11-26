@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductListService } from '../../services/product-list.service';
 import { Product } from '../../models/product.model';
 
@@ -19,9 +19,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.productListService.$onGetProducts.subscribe((res: Product[]) => {
-      setTimeout(() => {
         this.products = res;
-      }, 400);
     });
   }
 
