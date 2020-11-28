@@ -20,5 +20,4 @@ export class ApiProductService {
       console.log(e.messages);
     }
   }
-
 }

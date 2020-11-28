@@ -3,6 +3,7 @@ import { Repository } from 'typeorm/repository/Repository';
 
 import { Product } from '../models/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { defaultProducts } from '../config/default-values';
 
 @Injectable()
 export class ProductService {
@@ -15,7 +16,21 @@ export class ProductService {
   //Get all product
   public async findAll(): Promise<Product[]> {
     try {
-      return await this.productRepository.find();
+      let products = await this.productRepository.find();
+      if (products.length === 0) {
+        await this.setDefaultValues();
+        products = await this.productRepository.find();
+      }
+      return products;
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  public async setDefaultValues() {
+    try {
+      const data = await this.productRepository.create(defaultProducts);
+      await this.productRepository.save(data);
     } catch (e) {
       return e.message;
     }
@@ -29,6 +44,4 @@ export class ProductService {
       return e.message;
     }
   }
-
-
 }
