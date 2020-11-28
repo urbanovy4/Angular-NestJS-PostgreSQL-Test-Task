@@ -11,6 +11,8 @@ export class ProductService {
     @InjectRepository(Product)
     public productRepository: Repository<Product>,
   ) {
+    const data = this.productRepository.create(defaultProducts);
+    this.productRepository.save(data).then(res => res);
   }
 
   //Get all product
@@ -18,7 +20,6 @@ export class ProductService {
     try {
       let products = await this.productRepository.find();
       if (products.length === 0) {
-        await this.setDefaultValues();
         products = await this.productRepository.find();
       }
       return products;
@@ -27,19 +28,10 @@ export class ProductService {
     }
   }
 
-  public async setDefaultValues() {
-    try {
-      const data = await this.productRepository.create(defaultProducts);
-      await this.productRepository.save(data);
-    } catch (e) {
-      return e.message;
-    }
-  }
-
   //Get product by id
   public async findById(id: string): Promise<Product> {
     try {
-      return await this.productRepository.findOne({ id });
+      return this.productRepository.findOne({ id });
     } catch (e) {
       return e.message;
     }

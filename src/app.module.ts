@@ -12,7 +12,7 @@ import { ProductController } from './controllers/product.controller';
     TypeOrmModule.forFeature([Product]),
   ],
   providers: [ProductService],
-  controllers: [ProductsListController, ProductController]
+  controllers: [ProductsListController, ProductController],
 })
 export class AppModule {
 }
