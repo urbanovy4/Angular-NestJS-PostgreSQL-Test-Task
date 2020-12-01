@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 export class ApiProductService {
 
   constructor(
-    private _http: HttpClient,
+    private http: HttpClient,
   ) {
   }
 
   public getAllProduct(): Observable<Product[]> {
     try {
-      return this._http.get<Product[]>('http://localhost:3000/products/pr');
+      return this.http.get<Product[]>('http://localhost:3000/products/');
     } catch (e) {
       console.log(e.messages);
     }

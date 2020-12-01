@@ -4,6 +4,7 @@ import { Repository } from 'typeorm/repository/Repository';
 import { Product } from '../models/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { defaultProducts } from '../config/default-values';
+import { ProductResponse, productToProductResponse } from '../models/productResponse';
 
 @Injectable()
 export class ProductService {
@@ -11,8 +12,6 @@ export class ProductService {
     @InjectRepository(Product)
     public productRepository: Repository<Product>,
   ) {
-    const data = this.productRepository.create(defaultProducts);
-    this.productRepository.save(data).then(res => res);
   }
 
   //Get all product
@@ -20,6 +19,8 @@ export class ProductService {
     try {
       let products = await this.productRepository.find();
       if (products.length === 0) {
+        const data = this.productRepository.create(defaultProducts);
+        await this.productRepository.save(data);
         products = await this.productRepository.find();
       }
       return products;
@@ -29,9 +30,16 @@ export class ProductService {
   }
 
   //Get product by id
-  public async findById(id: string): Promise<Product> {
+  public async findById(reqType: string, id: string): Promise<ProductResponse | number | string> {
     try {
-      return this.productRepository.findOne({ id });
+      const product = await this.productRepository.findOne({ id });
+      if (reqType === 'price' && product) {
+        return product.price;
+      } else if (reqType === 'info' && product) {
+        return productToProductResponse(product);
+      } else {
+        return 'Type is not valid!';
+      }
     } catch (e) {
       return e.message;
     }
