@@ -15,7 +15,7 @@ export class ProductService {
   }
 
   //Get all product
-  public async findAll(): Promise<Product[]> {
+  public async findAll(): Promise<Product[] | string[]> {
     try {
       let products = await this.productRepository.find();
       if (products.length === 0) {
@@ -23,7 +23,7 @@ export class ProductService {
         await this.productRepository.save(data);
         products = await this.productRepository.find();
       }
-      return products;
+      return products.map(pr => pr.id);
     } catch (e) {
       return e.message;
     }
